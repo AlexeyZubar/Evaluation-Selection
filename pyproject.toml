@@ -7,6 +7,8 @@ authors = ["Alexey Zubar"]
 [tool.poetry.dependencies]
 python = "^3.9"
 click = "^8.1.3"
+requests = "^2.27.1"
+pandas = "^1.4.2"
 
 [tool.poetry.dev-dependencies]
 
