@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "Evaluation-Selection"
-version = "first"
+version = "0.1.0"
 description = "my homework"
 authors = ["Alexey Zubar"]
 
