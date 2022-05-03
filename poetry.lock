@@ -791,7 +791,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "ac763c5268db16f955a924911351b9490ad8cc35ac70f1b4b300d2436582fa04"
+content-hash = "801d904b8298ddc7ba65e3f5f80cb641f93c460a0380a46098edefb9b8236f7f"
 
 [metadata.files]
 alembic = [
