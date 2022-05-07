@@ -86,8 +86,8 @@ def train(
         mlflow.log_param("max_iter", max_iter)
         mlflow.log_param("logreg_c", logreg_c)
         mlflow.log_metric("accuracy", accuracy)
-        
+        mlflow.log_metric("f1_micro", f1_micro)
         click.echo(f"Accuracy: {accuracy}.")
-        
+        click.echo(f"f1_micro: {f1_micro}.")
         dump(model, save_model_path)
         click.echo(f"Model is saved to {save_model_path}.")
