@@ -55,13 +55,19 @@ from .data import get_dataset
 )
 @click.option(
     "--max-iter",
-    default=500,
+    default=100,
     type=int,
     show_default=True,
 )
 @click.option(
     "--logreg-c",
     default=1.0,
+    type=float,
+    show_default=True,
+)
+@click.option(
+    "--n-estimators",
+    default=100,
     type=float,
     show_default=True,
 )
@@ -74,6 +80,7 @@ def train(
     max_iter: int,
     logreg_c: float,
     select_model:str,
+    n_estimators:int,
 ) -> None:
     features_train, target_train = get_dataset(
         dataset_path,
@@ -86,18 +93,19 @@ def train(
         cv = KFold(n_splits=5)
         if(select_model=='logist_regression'):
             model=LogisticRegression(random_state=random_state, max_iter=max_iter, C=logreg_c)
-        print(select_model)
         accuracy = (cross_val_score(model, features_train, target_train, cv = cv, scoring='accuracy')).mean()
         f1_micro = (cross_val_score(model, features_train, target_train, cv = cv, scoring='f1_micro')).mean()
         roc_auc_ovr = (cross_val_score(model, features_train, target_train, cv = cv, scoring='roc_auc_ovr')).mean()
         mlflow.log_param("use_scaler", use_scaler)
         mlflow.log_param("max_iter", max_iter)
         mlflow.log_param("logreg_c", logreg_c)
+        mlflow.log_param("select_model", select_model)
         mlflow.log_metric("accuracy", accuracy)
         mlflow.log_metric("f1_micro", f1_micro)
         mlflow.log_metric("roc_auc_ovr", roc_auc_ovr)
         click.echo(f"Accuracy: {accuracy}.")
         click.echo(f"f1_micro: {f1_micro}.")
         click.echo(f"roc_auc_ovr: {roc_auc_ovr}.")
+        click.echo(f"select_model: {select_model}.")
         dump(model, save_model_path)
         click.echo(f"Model is saved to {save_model_path}.")
