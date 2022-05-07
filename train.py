@@ -8,6 +8,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
 from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
+
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 
@@ -49,14 +51,14 @@ from .data import get_dataset
     show_default=True,
 )
 @click.option(
-    "--use-scaler",
-    default=True,
-    type=bool,
+    "--feature-engineering",
+    default='standard_scaler',
+    type=click.Choice(['standard_scaler', 'min_max_scaler','None']),
     show_default=True,
 )
 @click.option(
     "--max-iter",
-    default=300,
+    default=500,
     type=int,
     show_default=True,
 )
@@ -90,7 +92,7 @@ def train(
     save_model_path: Path,
     random_state: int,
     test_split_ratio: float,
-    use_scaler: bool,
+    feature_engineering: str,
     max_iter: int,
     logreg_c: float,
     select_model:str,
@@ -104,8 +106,10 @@ def train(
         test_split_ratio,
     )
     with mlflow.start_run():
-        if use_scaler:       
+        if feature_engineering=='standard_scaler':       
             features_train = StandardScaler().fit_transform(features_train)
+        elif feature_engineering=='min_max_scaler': 
+            features_train = MinMaxScaler().fit_transform(features_train)
         cv = KFold(n_splits=5)
         if(select_model=='logist_regression'):
             model=LogisticRegression(random_state=random_state, max_iter=max_iter, C=logreg_c,n_jobs=-1)
@@ -114,7 +118,7 @@ def train(
         accuracy = (cross_val_score(model, features_train, target_train, cv = cv, scoring='accuracy')).mean()
         f1_micro = (cross_val_score(model, features_train, target_train, cv = cv, scoring='f1_micro')).mean()
         roc_auc_ovr = (cross_val_score(model, features_train, target_train, cv = cv, scoring='roc_auc_ovr')).mean()
-        mlflow.log_param("use_scaler", use_scaler)
+        mlflow.log_param("feature_engineering",feature_engineering)
         mlflow.log_param("max_iter", max_iter)
         mlflow.log_param("logreg_c", logreg_c)
         mlflow.log_param("select_model", select_model)
