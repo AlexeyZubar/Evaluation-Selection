@@ -36,6 +36,12 @@ from .data import get_dataset
     show_default=True,
 )
 @click.option(
+    "--select-model",
+    default='logist_regression',
+    type=str,
+    show_default=True,
+)
+@click.option(
     "--test-split-ratio",
     default=0.2,
     type=click.FloatRange(0, 1, min_open=True, max_open=True),
@@ -67,6 +73,7 @@ def train(
     use_scaler: bool,
     max_iter: int,
     logreg_c: float,
+    select_model:str,
 ) -> None:
     features_train, target_train = get_dataset(
         dataset_path,
@@ -77,8 +84,9 @@ def train(
         if use_scaler:       
             features_train = StandardScaler().fit_transform(features_train)
         cv = KFold(n_splits=5)
-        model=LogisticRegression(random_state=random_state, max_iter=max_iter, C=logreg_c)
-        
+        if(select_model=='logist_regression'):
+            model=LogisticRegression(random_state=random_state, max_iter=max_iter, C=logreg_c)
+        print(select_model)
         accuracy = (cross_val_score(model, features_train, target_train, cv = cv, scoring='accuracy')).mean()
         f1_micro = (cross_val_score(model, features_train, target_train, cv = cv, scoring='f1_micro')).mean()
         roc_auc_ovr = (cross_val_score(model, features_train, target_train, cv = cv, scoring='roc_auc_ovr')).mean()
