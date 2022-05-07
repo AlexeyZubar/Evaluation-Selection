@@ -68,7 +68,13 @@ from .data import get_dataset
 @click.option(
     "--n-estimators",
     default=100,
-    type=float,
+    type=int,
+    show_default=True,
+)
+@click.option(
+    "--max-depth",
+    default=None,
+    type=int,
     show_default=True,
 )
 def train(
