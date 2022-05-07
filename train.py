@@ -9,6 +9,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 
 from .data import get_dataset
 
@@ -80,7 +81,7 @@ from .data import get_dataset
 @click.option(
     "--max-features",
     default=1,
-    type=click.FloatRange(0, 1, min_open=True, max_open=True),
+    type=click.FloatRange(0, 1, min_open=True, max_open=False),
     show_default=True,
 )
 
@@ -94,6 +95,8 @@ def train(
     logreg_c: float,
     select_model:str,
     n_estimators:int,
+    max_depth:int,
+    max_features:int,
 ) -> None:
     features_train, target_train = get_dataset(
         dataset_path,
@@ -105,7 +108,9 @@ def train(
             features_train = StandardScaler().fit_transform(features_train)
         cv = KFold(n_splits=5)
         if(select_model=='logist_regression'):
-            model=LogisticRegression(random_state=random_state, max_iter=max_iter, C=logreg_c)
+            model=LogisticRegression(random_state=random_state, max_iter=max_iter, C=logreg_c,n_jobs=-1)
+        elif(select_model=='random_forest'):
+            model=RandomForestClassifier(random_state=random_state,max_depth=max_depth,max_features=max_features,n_estimators=n_estimators,n_jobs=-1)
         accuracy = (cross_val_score(model, features_train, target_train, cv = cv, scoring='accuracy')).mean()
         f1_micro = (cross_val_score(model, features_train, target_train, cv = cv, scoring='f1_micro')).mean()
         roc_auc_ovr = (cross_val_score(model, features_train, target_train, cv = cv, scoring='roc_auc_ovr')).mean()
