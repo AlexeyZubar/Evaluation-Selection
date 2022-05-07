@@ -118,7 +118,7 @@ def train(
         mlflow.log_param("max_iter", max_iter)
         mlflow.log_param("logreg_c", logreg_c)
         mlflow.log_param("select_model", select_model)
-        mlflow.log_param("features_train", features_train)
+        mlflow.log_param("max_depth", max_depth)
         mlflow.log_metric("accuracy", accuracy)
         mlflow.log_metric("f1_micro", f1_micro)
         mlflow.log_metric("roc_auc_ovr", roc_auc_ovr)
