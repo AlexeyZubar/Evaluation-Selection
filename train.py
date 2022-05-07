@@ -77,6 +77,13 @@ from .data import get_dataset
     type=int,
     show_default=True,
 )
+@click.option(
+    "--max-features",
+    default=1,
+    type=click.FloatRange(0, 1, min_open=True, max_open=True),
+    show_default=True,
+)
+
 def train(
     dataset_path: Path,
     save_model_path: Path,
