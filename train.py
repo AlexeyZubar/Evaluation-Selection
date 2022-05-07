@@ -39,7 +39,7 @@ from .data import get_dataset
 @click.option(
     "--select-model",
     default='logist_regression',
-    type=str,
+    type=click.Choice(['logist_regression', 'random_forest']),
     show_default=True,
 )
 @click.option(
@@ -56,7 +56,7 @@ from .data import get_dataset
 )
 @click.option(
     "--max-iter",
-    default=100,
+    default=300,
     type=int,
     show_default=True,
 )
