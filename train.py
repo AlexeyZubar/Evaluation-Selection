@@ -80,11 +80,13 @@ def train(
         model=LogisticRegression(random_state=random_state, max_iter=max_iter, C=logreg_c)
         
         accuracy = (cross_val_score(model, features_train, target_train, cv = cv, scoring='accuracy')).mean()
-        
+        f1_micro = (cross_val_score(model, features_train, target_train, cv = cv, scoring='f1_micro')).mean()
         mlflow.log_param("use_scaler", use_scaler)
         mlflow.log_param("max_iter", max_iter)
         mlflow.log_param("logreg_c", logreg_c)
         mlflow.log_metric("accuracy", accuracy)
+        
         click.echo(f"Accuracy: {accuracy}.")
+        
         dump(model, save_model_path)
         click.echo(f"Model is saved to {save_model_path}.")
