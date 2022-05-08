@@ -40,7 +40,7 @@ from .data import get_dataset
 )
 @click.option(
     "--search",
-    default=42,
+    default='NestedCV',
     type=click.Choice(['KFold', 'NestedCV']),
     show_default=True,
 )
