@@ -39,6 +39,12 @@ from .data import get_dataset
     show_default=True,
 )
 @click.option(
+    "--search",
+    default=42,
+    type=click.Choice(['KFold', 'NestedCV']),
+    show_default=True,
+)
+@click.option(
     "--select-model",
     default='logist_regression',
     type=click.Choice(['logist_regression', 'random_forest']),
@@ -99,6 +105,7 @@ def train(
     n_estimators:int,
     max_depth:int,
     max_features:int,
+    search: str,
 ) -> None:
     features_train, target_train = get_dataset(
         dataset_path,
