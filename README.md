@@ -37,3 +37,7 @@ Install all requirements (including dev requirements) to poetry environment:
 ```
 poetry install
 ```
+
+Task 8
+i.
+![image](https://user-images.githubusercontent.com/20214519/167739977-adcb2a9d-d227-4231-8804-a732fd655166.png)
