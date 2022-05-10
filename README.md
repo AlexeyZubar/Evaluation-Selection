@@ -28,3 +28,12 @@ poetry run train --search KFold
 ```sh
 poetry run mlflow ui
 ```
+
+## Development
+
+The code in this repository must be tested, formatted with black, and pass mypy typechecking before being commited to the repository.
+
+Install all requirements (including dev requirements) to poetry environment:
+```
+poetry install
+```
