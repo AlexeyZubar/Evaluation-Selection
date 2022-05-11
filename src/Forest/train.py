@@ -4,8 +4,6 @@ from joblib import dump
 import click
 import mlflow
 import mlflow.sklearn
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
@@ -104,7 +102,7 @@ def train(
     select_model: str,
     n_estimators: int,
     max_depth: int,
-    max_features: int,
+    max_features: float,
     search: str,
 ) -> None:
     features_train, target_train = get_dataset(
@@ -155,7 +153,7 @@ def train(
                 model = LogisticRegression(random_state=random_state, n_jobs=-1)
                 space = dict()
                 space["max_iter"] = [10, 100, 200, 400, 500, 700]
-                space["C"] = [0.001, 0.01, 0.1, 1, 10]
+                space["C"] = [0.001, 0.01, 0.1, 1.0, 10.0]
             elif select_model == "random_forest":
                 model = RandomForestClassifier(random_state=random_state, n_jobs=-1)
                 space = dict()
@@ -194,6 +192,7 @@ def train(
         mlflow.log_param("feature_engineering", feature_engineering)
         mlflow.log_param("select_model", select_model)
         mlflow.log_param("search", search)
+        mlflow.log_param("random_state", random_state)
         mlflow.log_metric("accuracy", accuracy)
         mlflow.log_metric("f1_macro", f1_macro)
         mlflow.log_metric("roc_auc_ovr", roc_auc_ovr)
