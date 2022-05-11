@@ -40,7 +40,11 @@ Install all requirements (including dev requirements) to poetry environment:
 ```sh
 poetry install
 ```
-Run black 
+Run tests 
+```sh
+poetry run pytest
+```
+Run [black](https://github.com/psf/black)
 ```sh
 python -m black <PATH>
 ```
