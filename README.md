@@ -56,6 +56,10 @@ Run mypy
 ```sh
 python -m mypy <PATH>
 ```
+Run mypy 
+```sh
+python -m nox
+```
 
 ## Screenshots
 ##### Task 8
