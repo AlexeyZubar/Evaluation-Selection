@@ -51,3 +51,7 @@ black.
 
 ![image](https://user-images.githubusercontent.com/20214519/167741338-394bc7d5-7b0d-48c6-83c5-92df6b44af0a.png)
 
+flake8
+
+![image](https://user-images.githubusercontent.com/20214519/167743271-d209c713-178e-4b90-a4b2-f444f26f3b36.png)
+
