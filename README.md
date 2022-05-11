@@ -15,6 +15,9 @@ poetry install --no-dev
 ```sh
 poetry run train -d <path to csv with data> -s <path to save trained model>
 ```
+
+If nothing starts, then change src.Forest.train:train in the pyproject.toml file to Forest.train:train, since it only starts for me with the path specified through src .
+
 You can configure additional options (such as hyperparameters) in the CLI. To get a full list of them, use help:
 ```sh
 poetry run train --help
