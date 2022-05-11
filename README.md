@@ -37,9 +37,22 @@ poetry run mlflow ui
 The code in this repository must be tested, formatted with black, and pass mypy typechecking before being commited to the repository.
 
 Install all requirements (including dev requirements) to poetry environment:
-```
+```sh
 poetry install
 ```
+Run black 
+```sh
+python -m black <PATH>
+```
+Run flake8 
+```sh
+python -m flake8 <PATH>
+```
+Run mypy 
+```sh
+python -m mypy <PATH>
+```
+
 ## Screenshots
 ##### Task 8
 i.
