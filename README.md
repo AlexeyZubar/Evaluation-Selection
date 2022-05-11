@@ -1,4 +1,7 @@
 # Evaluation-Selection it's my homework
+
+### All homework screenshots are after all the instructions
+
 ## Usage
 This package allows you to train model for detecting the presence of heart disease in the patient.
 1. Clone this repository to your machine.
